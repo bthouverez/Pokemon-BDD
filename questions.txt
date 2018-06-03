@@ -1,0 +1,15 @@
+*
+* Questions SQL
+* Travail sur document pokémon
+*
+
+Ecrire les requêtes SQL permettant d'afficher les résultats suivants:
+
+1- Afficher tous les pokémons
+	SELECT * FROM pokemon;
+
+2- Afficher le nom du pokémon numéro 129
+	SELECT nom_pok FROM pokemon WHERE id_pok = 129;
+
+3- Afficher tous les différents types de pokémons disponibles (sans doublons)
+	

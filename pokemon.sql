@@ -4,7 +4,7 @@
 
 -- Bastien Thouverez
 
-DROP TABLE IF EXISTS pokemon, dresseur, detientPokemon, type, estType, evolueEn;
+DROP TABLE IF EXISTS pokemon, dresseur, detientPokemon, estType, evolueEn;
 
 -- Structure de la table pokemon
 -- Table de base
@@ -14,8 +14,10 @@ CREATE TABLE pokemon (
 	PRIMARY KEY(id_pok)
 );
 
--- Table evolution
+-- Table evolueEn
 -- Un pokémon peut évoluer en un autre pokémon à un certain niveau
+-- lvl = -1 -> nécessite une pierre pour évoluer
+-- lvl = -2 -> nécessite un échange pour évoluer
 CREATE TABLE evolueEn (
 	id_pok_base int NOT NULL,
 	id_pok_evol int NOT NULL,
@@ -49,8 +51,6 @@ CREATE TABLE detientPokemon (
 	FOREIGN KEY(id_dress) REFERENCES dresseur(id_dress),
 	FOREIGN KEY(id_pok) REFERENCES pokemon(id_pok)
 );
-
-
 
 
 
@@ -185,7 +185,7 @@ INSERT INTO pokemon (id_pok, nom_pok) VALUES
 (119, 'Poissoroy'),
 (120, 'Stari'),
 (121, 'Staross'),
-(122, 'M.Mime'),
+(122, 'M. Mime'),
 (123, 'Insecateur'),
 (124, 'Lippoutou'),
 (125, 'Elektek'),
@@ -432,25 +432,157 @@ INSERT INTO estType (id_pok, type_pok) VALUES
 	(151, 'Psy');
 
 
-INSERT INTO dresseur (nom_dress) VALUES 
-	('Pierre'),
-	('Ondine'),
-	('Major Bob'),
-	('Erika'),
-	('Koga'),
-	('Morgane'),
-	('Auguste'),
-	('Giovanni'),
-	('Olga'),
-	('Aldo'),
-	('Agatha'),
-	('Peter');
+INSERT INTO dresseur (id_dress, nom_dress) VALUES 
+	(2, 'Pierre'),
+	(3, 'Ondine'),
+	(4, 'Major Bob'),
+	(5, 'Erika'),
+	(6, 'Koga'),
+	(7, 'Morgane'),
+	(8, 'Auguste'),
+	(9, 'Giovanni'),
+	(10, 'Olga'),
+	(11, 'Aldo'),
+	(12, 'Agatha'),
+	(13, 'Peter');
 
 INSERT INTO detientPokemon (id_dress, id_pok, lvl_pok) VALUES
-	(1, 74, 9),
-	(1, 95, 11);
+	-- Pierre: Raccaillou 12, Onix 14 
+	(2, 74, 12),
+	(2, 95, 14),
+	-- Ondine: Stari 18, Staross 21
+	(3, 120, 18),
+	(3, 121, 21),
+	-- Major Bob: Voltorbe 21, Pikachu 18, Raichu 24
+	(4, 100, 21),
+	(4, 25, 18),
+	(4, 26, 24),
+	-- Erika: Empiflor 29, Saquedeneu 24, Rafflesia 29
+	(5, 71, 29),
+	(5, 114, 24),
+	(5, 45, 29),
+	-- Koga: Smogo 37, Grotadmorv 39, Smogo 37, Smogogo 43
+	(6, 109, 37),
+	(6, 89, 39),
+	(6, 109, 37),
+	(6, 110, 43),
+	-- Morgane: Kadabra 38, M.  Mime 37, Aeromite 38, Alakazam 43
+	(7, 64, 38),
+	(7, 122, 37),
+	(7, 49, 38),
+	(7, 65, 43),
+	-- Auguste: Caninos 42, Ponyta 40, Galopa 42, Arcanin 47
+	(8, 58, 42),
+	(8, 77, 40),
+	(8, 78, 42),
+	(8, 59, 47),
+	-- Giovanni: Rhinocorne 45, Triopikeur 42, Nidoqueen 44, Nodiking 45, Rhinoferos 50
+	(9, 111, 42),
+	(9, 51, 42),
+	(9, 31, 44),
+	(9, 34, 45),
+	(9, 112, 50),
+	-- Olga: Lamantine 54, Crustabri 53, Flagadoss 54, Lippoutou 56, Lokhlass 56
+	(10, 87, 54),
+	(10, 91, 53),
+	(10, 80, 54),
+	(10, 124, 56),
+	(10, 131, 56),
+	-- Aldo: Onix 53, Tygnon 55, Kicklee 55, Onix 56, Mackogneur 58
+	(11, 95, 53),
+	(11, 107, 55),
+	(11, 106, 55),
+	(11, 95, 56),
+	(11, 68, 58),
+	-- Agatha: Ectoplasma 56, Nosferalto 56, Spectrum 55, Arbok 58, Ectoplasma 60
+	(12, 94, 56),
+	(12, 42, 56),
+	(12, 93, 55),
+	(12, 24, 58),
+	(12, 94, 60),
+	-- Peter: Leviator 58, Draco 56,  Draco 56, Ptera 60, Dracolosse 62
+	(13, 130, 58),
+	(13, 148, 56),
+	(13, 148, 56),
+	(13, 142, 60),
+	(13, 149, 62);
 
 
+-- evolutions
+INSERT INTO evolueEn (id_pok_base, id_pok_evol, lvl_evol_pok) VALUES
+-- http://www.pokepedia.fr/Liste_des_Pok%C3%A9mon_par_famille_d%27%C3%A9volution
+	(  1,   2, 16),
+	(  2,   3, 32),
+	(  4,   5, 16),
+	(  5,   6, 36),
+	(  7,   8, 16),
+	(  8,   9, 36),
+	( 10,  11, 7 ),
+	( 11,  12, 10),
+	( 13,  14, 7 ),
+	( 14,  15, 10),
+	( 16,  17, 18),
+	( 17,  18, 36),
+	( 19,  20, 20),
+	( 21,  22, 20),
+	( 23,  24, 22),
+	( 25,  26, -1),
+	( 27,  28, 22),
+	( 29,  30, 16),
+	( 30,  31, -1),
+	( 32,  33, 16),
+	( 33,  34, -1),
+	( 35,  36, -1),
+	( 37,  38, -1),
+	( 39,  40, -1),
+	( 41,  42, 22),
+	( 43,  44, 21),
+	( 44,  45, -1),
+	( 46,  47, 24),
+	( 48,  49, 31),
+	( 50,  51, 26),
+	( 52,  53, 28),
+	( 54,  55, 33),
+	( 56,  57, 28),
+	( 58,  59, -1),
+	( 60,  61, 25),
+	( 61,  62, -1),
+	( 63,  64, 16),
+	( 64,  65, -2),
+	( 66,  67, 28),
+	( 67,  68, -2),
+	( 69,  70, 21),
+	( 70,  71, -1),
+	( 72,  73, 30),
+	( 74,  75, 25),
+	( 75,  76, -2),
+	( 77,  78, 40),
+	( 79,  80, 37),
+	( 81,  82, 30),
+	( 84,  85, 31),
+	( 86,  87, 34),
+	( 88,  89, 38),
+	( 90,  91, -1),
+	( 92,  93, 25),
+	( 93,  94, -2),
+	( 96,  97, 26),
+	( 98,  99, 28),
+	(100, 101, 30),
+	(102, 103, -1),
+	(104, 105, 28),
+	(109, 110, 35),
+	(111, 112, 42),
+	(116, 117, 32),
+	(118, 119, 33),
+	(120, 121, -1),
+	(129, 130, 20),
+	(133, 134, -1),
+	(133, 135, -1),
+	(133, 136, -1),
+	(138, 139, 40),
+	(140, 141, 40),
+	(147, 148, 30),
+	(148, 149, 55);
 
 
 
