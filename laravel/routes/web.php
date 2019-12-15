@@ -11,6 +11,10 @@
 |
 */
 
+Route::resource('pokemons', 'PokemonsController');
+Route::resource('dresseurs', 'DresseursController');
+Route::resource('attaques', 'AttaquesController');
+
 Route::get('/', function () {
     return view('welcome');
 });
