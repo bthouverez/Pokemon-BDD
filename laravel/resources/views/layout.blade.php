@@ -9,7 +9,11 @@
 			width: 75%;
 			margin: auto;
 		}
-		.card { margin: auto; }
+        .card { 
+            margin: auto;  
+        }
+        .card img {
+        }
  		html, body {
                 background-color: #fff;
                 color: #636b6f;

@@ -10,8 +10,14 @@
   <div class="card-body">
     <h5 class="card-title">{{ $pokemon->id }}</h5>
     <p class="card-text">{{ $pokemon->nom }}</p>
-    <a href="/pokemons" class="btn btn-primary">Retour</a>
   </div>
-</div>
+</div>  
+<br>
+<p align="center">
+	<a href="/pokemons/{{ $pokemon->id-1 != 0 ? $pokemon->id-1:151 }}" class="btn btn-success">Précédent</a>
+    <a href="/pokemons" class="btn btn-warning">Tous</a>
+    <a href="/pokemons/{{ $pokemon->id+1 != 152 ? $pokemon->id+1:1 }}" class="btn btn-danger">Suivant</a>
+ </p> 
+	
 </main>
 @endsection

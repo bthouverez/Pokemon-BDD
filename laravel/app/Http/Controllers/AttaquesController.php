@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Attaque;
+use App\Type;
 use Illuminate\Http\Request;
 
 class AttaquesController extends Controller
@@ -25,7 +26,8 @@ class AttaquesController extends Controller
      */
     public function create()
     {
-        //
+        $types = Type::all();
+        return view('attaques.create', compact('types'));
     }
 
     /**
@@ -36,7 +38,7 @@ class AttaquesController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        dd($request);
     }
 
     /**
