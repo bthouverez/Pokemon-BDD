@@ -70,21 +70,45 @@
 
 		  <div class="collapse navbar-collapse" id="navbarSupportedContent">
 		    <ul class="navbar-nav mr-auto">
-		      <li class="nav-item  {{ Request::is('pokemons') ? 'active' : '' }}">
-		        <a class="nav-link" href="/pokemons">Pokémons</a>
-		      </li>
-		      <li class="nav-item  {{ Request::is('attaques') ? 'active' : '' }}">
-		        <a class="nav-link" href="/attaques">Attaques</a>
-		      </li>
-		      <li class="nav-item  {{ Request::is('dresseurs') ? 'active' : '' }}">
-		        <a class="nav-link" href="/dresseurs">Dresseurs</a>
-		      </li>
+              <li class="nav-item {{ Request::is('pokemons') ? 'active' : '' }} dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="pokemonsLink" 
+                role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  Pokémons
+                </a>
+                <div class="dropdown-menu" aria-labelledby="pokemonsLink">
+                  <a class="dropdown-item" href="/pokemons">Voir tous</a>
+                  <a class="dropdown-item" href="/pokemons/create">Créer</a>
+                </div>
+              </li>
+              <li class="nav-item {{ Request::is('attaques') ? 'active' : '' }} dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="attaquesLink" 
+                role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  Attaques
+                </a>
+                <div class="dropdown-menu" aria-labelledby="attaquesLink">
+                  <a class="dropdown-item" href="/attaques">Voir toutes</a>
+                  <a class="dropdown-item" href="/attaques/create">Créer</a>
+                </div>
+              </li>
+              <li class="nav-item {{ Request::is('dresseurs') ? 'active' : '' }} dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="dresseursLink" 
+                role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  Dresseurs
+                </a>
+                <div class="dropdown-menu" aria-labelledby="dresseursLink">
+                  <a class="dropdown-item" href="/dresseurs">Voir tous</a>
+                  <a class="dropdown-item" href="/dresseurs/create">Créer</a>
+                </div>
+              </li>
 		    </ul>
 		  </div>
 		</nav>
 	</header>
 	@yield('main')
 
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 </body>
 </html>
 
