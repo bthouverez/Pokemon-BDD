@@ -1,0 +1,19 @@
+@startuml
+Dresseur "1" -- "1..6" Pokemon : detient
+Dresseur "1" -- "*" Pokemon : stocke
+(Dresseur, Pokemon) .. stocke
+(Dresseur, Pokemon) .. detient
+class Pokemon {
+nom : String
+}
+class Dresseur {
+nom : String
+}
+class stocke {
+boite : int
+niveau : int
+}
+class detient {
+niveau : int
+}
+@enduml
