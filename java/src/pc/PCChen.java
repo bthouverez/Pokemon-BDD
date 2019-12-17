@@ -26,7 +26,7 @@ public class PCChen {
     private static String URL = "jdbc:postgresql://localhost:5432/pokemon";
     
 
-    private static String LOGIN = "bthouverez";
+    private static String LOGIN = "postgres";
     private static String PASSWORD = "loul22";
     private Connection connection;
     private Statement stmt;
