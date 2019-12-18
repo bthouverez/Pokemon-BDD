@@ -18,3 +18,7 @@ Route::resource('attaques', 'AttaquesController');
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('/test', function() {
+	return view('hyperspace_layout');
+});

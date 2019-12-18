@@ -1,4 +1,4 @@
-@extends('layout')
+@extends('hyperspace_layout')
 
 @section('title', 'Toutes les attaques')
 

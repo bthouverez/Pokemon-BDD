@@ -14,9 +14,9 @@
 </div>  
 <br>
 <p align="center">
-	<a href="/pokemons/{{ $pokemon->id-1 != 0 ? $pokemon->id-1:151 }}" class="btn btn-success">Précédent</a>
+	<a href="/pokemons/{{ $pokemon->id-1 == 0 ? $pokemon->count() : $pokemon->id-1  }}" class="btn btn-success">Précédent</a>
     <a href="/pokemons" class="btn btn-warning">Tous</a>
-    <a href="/pokemons/{{ $pokemon->id+1 != 152 ? $pokemon->id+1:1 }}" class="btn btn-danger">Suivant</a>
+    <a href="/pokemons/{{ $pokemon->id+1 >= $pokemon->count() ? 1:$pokemon->id+1 }}" class="btn btn-danger">Suivant</a>
  </p> 
 	
 </main>

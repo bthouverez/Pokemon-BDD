@@ -1,4 +1,4 @@
-@extends('layout')
+@extends('hyperspace_layout')
 
 @section('title', 'Tous les dresseurs')
 
