@@ -2,10 +2,6 @@
 -- DATA
 --
 
-TRUNCATE TABLE attaques CASCADE;
-TRUNCATE TABLE types CASCADE;
-TRUNCATE TABLE pokemons CASCADE;
-TRUNCATE TABLE dresseurs CASCADE;
 
 -- http://www.g33kmania.com/liste-pokemon-generation-1/
 INSERT INTO pokemons (id, nom) VALUES
@@ -180,7 +176,7 @@ INSERT INTO types (id, libelle) VALUES
 	( 14, 'Spectre'),
 	( 15, 'Vol');
 
-INSERT INTO attaques (id, libelle, type_id, pp, puissance, precision) VALUES
+INSERT INTO attaques (id, libelle, type_id, pp, puissance, precis) VALUES
 	(  1, 'Abîme', 			13, 5, 	null, 	30),
 	(  2, 'Acid''armure', 	10, 40, null, 	100),
 	(  3, 'Acide', 			10, 30, 40, 	100),
