@@ -70,7 +70,7 @@ CREATE TABLE attaques (
 	type_id int NOT NULL,
 	pp int NOT NULL,
 	puissance int NULL,
-	`precision` int NOT NULL,
+	precis int NOT NULL,
 	PRIMARY KEY(id),
 	FOREIGN KEY(type_id) REFERENCES types(id)
 );
