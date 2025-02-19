@@ -64,16 +64,16 @@ CREATE TABLE detient_pokemons (
 
 -- Structure de la table attaque
 -- Attaques des pokémons
-CREATE TABLE attaques (
-	id SERIAL NOT NULL,
-	libelle varchar(50) NOT NULL,
-	type_id int NOT NULL,
-	pp int NOT NULL,
-	puissance int NULL,
-	precision int NOT NULL,
-	PRIMARY KEY(id),
-	FOREIGN KEY(type_id) REFERENCES types(id)
-);
+-- CREATE TABLE attaques (
+	-- id SERIAL NOT NULL,
+	-- libelle varchar(50) NOT NULL,
+	-- type_id int NOT NULL,
+	-- pp int NOT NULL,
+	-- puissance int NULL,
+	-- precision int NOT NULL,
+	-- PRIMARY KEY(id),
+	-- FOREIGN KEY(type_id) REFERENCES types(id)
+-- );
 
 -- Attaques
 -- https://www.pokemontrash.com/rouge-bleu-jaune/liste-attaques.php

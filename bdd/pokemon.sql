@@ -4,14 +4,29 @@
 
 -- Bastien Thouverez
 
-DROP TABLE IF EXISTS detientPokemon, stockePokemon, estType, evolueEn, dresseur, pokemon;
+DROP TABLE IF EXISTS detientPokemon, stockePokemon, possedeAttaque, estType, evolueEn, attaque, dresseur, pokemon;
 
 -- Structure de la table pokemon
 -- Table de base
 CREATE TABLE pokemon (
-	id_pok SERIAL NOT NULL,
-	nom_pok varchar(10) NOT NULL,
-	PRIMARY KEY(id_pok)
+	id SERIAL NOT NULL,
+	nom varchar(10) NOT NULL,
+	PRIMARY KEY(id)
+);
+
+-- Structure de la table attaque
+CREATE TABLE attaque (
+    id SERIAL NOT NULL,
+    nom varchar(25) NOT NULL,
+    puissance int NOT NULL,
+    PRIMARY KEY(id)
+);
+
+CREATE TABLE possedeAttaque (
+    id_pok int NOT NULL,
+    id_attaque int NOT NULL,
+	FOREIGN KEY(id_pok) REFERENCES pokemon(id),
+	FOREIGN KEY(id_attaque) REFERENCES attaque(id)
 );
 
 -- Table evolueEn
@@ -19,24 +34,24 @@ CREATE TABLE pokemon (
 -- lvl = -1 -> nécessite une pierre pour évoluer
 -- lvl = -2 -> nécessite un échange pour évoluer
 CREATE TABLE evolueEn (
-	id_pok_base int NOT NULL,
-	id_pok_evol int NOT NULL,
-	lvl_evol_pok int NOT NULL,
-	FOREIGN KEY(id_pok_base) REFERENCES pokemon(id_pok),
-	FOREIGN KEY(id_pok_evol) REFERENCES pokemon(id_pok)
+	id_base int NOT NULL,
+	id_evol int NOT NULL,
+	lvl_evol int NOT NULL,
+	FOREIGN KEY(id_base) REFERENCES pokemon(id),
+	FOREIGN KEY(id_evol) REFERENCES pokemon(id)
 );
 
 CREATE TABLE estType (
 	id_pok int NOT NULL,
-	type_pok varchar(25) NOT NULL,
-	FOREIGN KEY(id_pok) REFERENCES pokemon(id_pok)
+	type varchar(25) NOT NULL,
+	FOREIGN KEY(id_pok) REFERENCES pokemon(id)
 );
 	
 -- Structure de la table dresseur
 CREATE TABLE dresseur (
-	id_dress SERIAL NOT NULL,
-	nom_dress varchar(25) NOT NULL,
-	PRIMARY KEY(id_dress)
+	id SERIAL NOT NULL,
+	nom varchar(25) NOT NULL,
+	PRIMARY KEY(id)
 );
 
 
@@ -46,10 +61,10 @@ CREATE TABLE dresseur (
 -- ligue https://www.pokebip.com/page__jeuxvideo__rbvj__conseil4.html
 CREATE TABLE detientPokemon (
 	id_dress int NOT NULL, 
-	id_pok int NOT NULL,  
-	lvl_pok int NOT NULL,
-	FOREIGN KEY(id_dress) REFERENCES dresseur(id_dress),
-	FOREIGN KEY(id_pok) REFERENCES pokemon(id_pok)
+	id_pok int NOT NULL,
+	lvl int NOT NULL,
+	FOREIGN KEY(id_dress) REFERENCES dresseur(id),
+	FOREIGN KEY(id_pok) REFERENCES pokemon(id)
 );
 
 
@@ -57,11 +72,11 @@ CREATE TABLE detientPokemon (
 -- Un dresseur possède des pokémons stockés dans le PC de Chen
 CREATE TABLE stockePokemon (
 	id_dress int NOT NULL, 
-	id_pok int NOT NULL,  
-	lvl_pok int NOT NULL,
+	id_pok int NOT NULL,
+	lvl int NOT NULL,
 	num_boite int NOT NULL,
-	FOREIGN KEY(id_dress) REFERENCES dresseur(id_dress),
-	FOREIGN KEY(id_pok) REFERENCES pokemon(id_pok)
+	FOREIGN KEY(id_dress) REFERENCES dresseur(id),
+	FOREIGN KEY(id_pok) REFERENCES pokemon(id)
 );
 
 
@@ -73,7 +88,7 @@ CREATE TABLE stockePokemon (
 -- http://www.g33kmania.com/liste-pokemon-generation-1/
 
 
-INSERT INTO pokemon (id_pok, nom_pok) VALUES
+INSERT INTO pokemon (id, nom) VALUES
 (  1, 'Bulbizarre'),
 (  2, 'Herbizarre'),
 (  3, 'Florizarre'),
@@ -228,7 +243,184 @@ INSERT INTO pokemon (id_pok, nom_pok) VALUES
 (150, 'Mewtwo'),
 (151, 'Mew');
 
-INSERT INTO estType (id_pok, type_pok) VALUES
+INSERT INTO attaque (nom, puissance) VALUES
+("Abîme",           0),
+("Acid'Armure",     0),
+("Acide",           40),
+("Adaptation",      0),
+("Affûtage",        0),
+("Amnésie",         0),
+("Armure",          0),
+("Balayage",        50),
+("Bec Vrille",      80),
+("Bélier",          90),
+("Berceuse",        0),
+("Blizzard",        120),
+("Bomb'Œuf",        100),
+("Bouclier",        0),
+("Boul'Armure",     0),
+("Brouillard",      0),
+("Brume",           0),
+("Buée Noire",      0),
+("Bulles d'O",      65),
+("Cage Éclair",     0),
+("Cascade",         80),
+("Charge",          35),
+("Choc Mental",     50),
+("Claquoir",        35),
+("Clonage",         0),
+("Combo-Griffe",    20),
+("Constriction",    10),
+("Copie",           0),
+("Coup D'Boule",    70),
+("Coud'Krâne",      100),
+("Coupe",           50),
+("Coupe-Vent",      80),
+("Croc de Mort",    80),
+("Croc Fatal",      0),
+("Croissance",      0),
+("Cru-Aile",        35),
+("Cyclone",         0),
+("Damoclès",        15),
+("Danse-Flamme",    15),
+("Danse-Fleur",     70),
+("Danse-Lames",     0),
+("Dard-Nuée",       14),
+("Dard-Venin",      15),
+("Déflagration",    120),
+("Destruction",     130),
+("Détritus",        65),
+("Dévorêve",        100),
+("Double-Dard",     25),
+("Double-Pied",     30),
+("Draco-Rage",      40),
+("Éboulement",      80),
+("Éclair",          40),
+("E-Coque",         0),
+("Écrasement",      65),
+("Écras'Face",      40),
+("Écume",           20),
+("Empal'Korne",     0),
+("Entrave", 0),
+("Étreinte", 15),
+("Explosion", 170),
+("Fatal-Foudre", 120),
+("Flammèche", 40),
+("Flash", 0),
+("Force", 80),
+("Force-Poigne", 55),
+("Fouet Lianes", 35),
+("Frappe-Atlas", -1),
+("Frénésie", 20),
+("Furie", 15),
+("Gaz Toxik", 0),
+("Griffe", 40),
+("Grincement", 0),
+("Grobisou", 0),
+("Groz'Yeux", 0),
+("Guillotine", 0),
+("Hâte", 0),
+("Hurlement", 0),
+("Hydrocanon", 120),
+("Hypnose", 0),
+("Intimidation", 0),
+("Jackpot", 40),
+("Jet de Sable", 0),
+("Jet-Pierres", 50),
+("Koud'Korne", 65),
+("Lance-Flamme", 95),
+("Lance-Soleil", 120),
+("Laser-Glace", 95),
+("Léchouille", 20),
+("Ligotage", 15),
+("Liliput", 0),
+("Lutte", 100),
+("Mania", 90),
+("Massd'Os", 65),
+("Mawashi Geri", 60),
+("Méga-Sangsue", 40),
+("Météores", 60),
+("Métronome", 0),
+("Mimique", 0),
+("Mimi-Queue", 0),
+("Morphing", 0),
+("Morsure", 60),
+("Mur Lumière", 0),
+("Onde Boréale", 65),
+("Onde Folie", 0),
+("Osmerang", 50),
+("Paraspore", 0),
+("Patience", 0),
+("Picanon", 20),
+("Picpic", 35),
+("Pied Sauté", 70),
+("Pied Voltige", 85),
+("Pilonnage", 15),
+("Pince-Masse", 90),
+("Piqué", 140),
+("Pistolet à O", 40),
+("Plaquage", 85),
+("Poing Comète", 18),
+("Poing de Feu", 75),
+("Poing Karaté", 50),
+("Poing Éclair", 75),
+("Poing Glace", 75),
+("Poudre Dodo", 0),
+("Poudre Toxik", 0),
+("Protection", 0),
+("Psyko", 90),
+("Puissance", 0),
+("Purédpois", 20),
+("Rafale Psy", 65),
+("Reflet", 0),
+("Repli", 0),
+("Repos", 0),
+("Riposte", 0),
+("Rugissement", 0),
+("Sacrifice", 80),
+("Sécrétion", 0),
+("Séisme", 100),
+("Soin", 0),
+("Sonicboom", 20),
+("Souplesse", 80),
+("Spore", 0),
+("Surf", 95),
+("Télékinésie", 0),
+("Téléport", 0),
+("Ténèbres", -1),
+("Tonnerre", 95),
+("Torgnoles", 15),
+("Tornade", 40),
+("Toxik", 0),
+("Tranche", 70),
+("Tranch'Herbe", 55),
+("Trempette", 0),
+("Triplattaque", 80),
+("Tunnel", 100),
+("Ultimapoing", 80),
+("Ultimawashi", 120),
+("Ultralaser", 120),
+("Ultrason", 0),
+("Uppercut", 70),
+("Vague Psy", 0),
+("Vampigraine", 0),
+("Vampirisme", 20),
+("Vive-Attaque", 40),
+("Vol", 70),
+("Vol-Vie", 20),
+("Yoga", 0);
+
+INSERT INTO possedeAttaque (id_pok, id_attaque) VALUES
+(25, 40),
+(25, 56),
+(25, 87),
+(25, 23),
+(4, 19),
+(4, 119),
+(4, 29),
+(4, 40);
+
+INSERT INTO estType (id_pok, type) VALUES
 (  1, 'Plante'),
 (  1, 'Poison'),
 (  2, 'Plante'),
@@ -444,7 +636,7 @@ INSERT INTO estType (id_pok, type_pok) VALUES
 (151, 'Psy');
 
 
-INSERT INTO dresseur (id_dress, nom_dress) VALUES 
+INSERT INTO dresseur (id, nom) VALUES
 ( 1, 'Zab'),
 ( 2, 'Pierre'),
 ( 3, 'Ondine'),
@@ -459,7 +651,7 @@ INSERT INTO dresseur (id_dress, nom_dress) VALUES
 (12, 'Agatha'),
 (13, 'Peter');
 
-INSERT INTO detientPokemon (id_dress, id_pok, lvl_pok) VALUES
+INSERT INTO detientPokemon (id_dress, id_pok, lvl) VALUES
 -- Zab: M.Mime (62), Lippoutou (65), Arcanin (58), Rafflesia (61), Elektek (65), Hypocean (68)
 (1, 122, 62),
 (1, 124, 65),
@@ -527,7 +719,7 @@ INSERT INTO detientPokemon (id_dress, id_pok, lvl_pok) VALUES
 ( 13, 142, 60),
 ( 13, 149, 62); 
 
-INSERT INTO stockePokemon (id_dress, id_pok, lvl_pok, num_boite) VALUES
+INSERT INTO stockePokemon (id_dress, id_pok, lvl, num_boite) VALUES
 (1, 16, 25, 1),
 (1, 16, 5, 1),
 (1, 16, 15, 1),
@@ -558,7 +750,7 @@ INSERT INTO stockePokemon (id_dress, id_pok, lvl_pok, num_boite) VALUES
 
 
 -- evolutions
-INSERT INTO evolueEn (id_pok_base, id_pok_evol, lvl_evol_pok) VALUES
+INSERT INTO evolueEn (id_base, id_evol, lvl_evol) VALUES
 -- http://www.pokepedia.fr/Liste_des_Pok%C3%A9mon_par_famille_d%27%C3%A9volution
 (  1,   2, 16),
 (  2,   3, 32),

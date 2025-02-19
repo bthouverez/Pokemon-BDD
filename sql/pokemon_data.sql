@@ -565,7 +565,7 @@ INSERT INTO est_type (pokemon_id, type_id) VALUES
 
 
 -- arenes https://www.pokebip.com/page__jeuxvideo__rbvj__champions_arene.html
--- ligue https://www.pokebip.com/page__jeuxvideo__rbvj__conseil4.html
+-- ligue  https://www.pokebip.com/page__jeuxvideo__rbvj__conseil4.html
 INSERT INTO dresseurs (id, nom) VALUES 
 	(2, 'Pierre'),
 	(3, 'Ondine'),
