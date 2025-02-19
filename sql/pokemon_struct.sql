@@ -10,7 +10,7 @@ DROP TABLE IF EXISTS attaques, types, pokemons, dresseurs;
 -- Structure de la table pokemons
 -- Table de base
 CREATE TABLE pokemons (
-	id SERIAL NOT NULL,
+	id INTEGER NOT NULL,
 	nom varchar(10) NOT NULL,
 	PRIMARY KEY(id)
 );
@@ -30,7 +30,7 @@ CREATE TABLE evolue_en (
 -- Structure de la table type
 -- Table des types, pour les pokemons et les attaques
 CREATE TABLE types (
-	id SERIAL NOT NULL,
+	id INTEGER NOT NULL,
 	libelle varchar(10) NOT NULL,
 	PRIMARY KEY(id)
 );
@@ -46,7 +46,7 @@ CREATE TABLE est_type (
 	
 -- Structure de la table dresseurs
 CREATE TABLE dresseurs (
-	id SERIAL NOT NULL,
+	id INTEGER NOT NULL,
 	nom varchar(25) NOT NULL,
 	PRIMARY KEY(id)
 );
@@ -64,16 +64,16 @@ CREATE TABLE detient_pokemons (
 
 -- Structure de la table attaque
 -- Attaques des pokémons
--- CREATE TABLE attaques (
-	-- id SERIAL NOT NULL,
-	-- libelle varchar(50) NOT NULL,
-	-- type_id int NOT NULL,
-	-- pp int NOT NULL,
-	-- puissance int NULL,
-	-- precision int NOT NULL,
-	-- PRIMARY KEY(id),
-	-- FOREIGN KEY(type_id) REFERENCES types(id)
--- );
+CREATE TABLE attaques (
+	id INTEGER NOT NULL,
+	libelle varchar(50) NOT NULL,
+	type_id int NOT NULL,
+	pp int NOT NULL,
+	puissance int NULL,
+	precis int NOT NULL,
+	PRIMARY KEY(id),
+	FOREIGN KEY(type_id) REFERENCES types(id)
+);
 
 -- Attaques
 -- https://www.pokemontrash.com/rouge-bleu-jaune/liste-attaques.php
